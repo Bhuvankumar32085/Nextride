@@ -13,7 +13,6 @@ export async function proxy(req: NextRequest) {
 
   let user = null;
 
-
   if (token) {
     try {
       const decoded = jwt.verify(
@@ -23,11 +22,16 @@ export async function proxy(req: NextRequest) {
 
       user = decoded.user;
     } catch (err) {
-      console.log(" Invalid or expired token", err);
+      console.log("JWT VERIFY ERROR:", err);
       user = null;
     }
   }
 
+  console.log("PATH:", pathname);
+  console.log("TOKEN:", token?.slice(0, 20));
+  console.log("TOKEN EXISTS:", !!token);
+  console.log("JWT_SECRET EXISTS:", !!process.env.JWT_SECRET);
+  console.log("USER:", user);
 
   //  Auth pages
   const isAuthPage =
