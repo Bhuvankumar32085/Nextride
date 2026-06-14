@@ -1,7 +1,7 @@
 "use client";
 import { authApi } from "@/app/axios/authApi";
 import { useAppDispatch } from "@/app/redux/hooks";
-import { setLoggedUser } from "@/app/redux/selices/userSlices";
+import { setLoading, setLoggedUser } from "@/app/redux/selices/userSlices";
 import axios from "axios";
 import { useEffect } from "react";
 
@@ -9,8 +9,15 @@ export const useGetCurrentUser = () => {
   const dispatch = useAppDispatch();
   useEffect(() => {
     const fetchUser = async () => {
+      dispatch(setLoading(true));
       try {
         const token = localStorage.getItem("token");
+        console.log("token", token);
+        if (!token) {
+          dispatch(setLoggedUser(null));
+          dispatch(setLoading(false));
+          return;
+        }
 
         const res = await authApi.get("/current-user", {
           headers: {
@@ -18,7 +25,9 @@ export const useGetCurrentUser = () => {
           },
         });
         if (res.data.success) {
+          console.log("USER FROM API", res.data.user);
           dispatch(setLoggedUser(res.data.user));
+          dispatch(setLoading(false));
         }
       } catch (error) {
         console.error("Error fetching user:", error);
@@ -33,6 +42,8 @@ export const useGetCurrentUser = () => {
           localStorage.removeItem("token");
         }
         dispatch(setLoggedUser(null));
+      } finally {
+        dispatch(setLoading(false));
       }
     };
 

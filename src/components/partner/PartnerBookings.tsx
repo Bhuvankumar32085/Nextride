@@ -119,6 +119,7 @@ export default function PartnerBookings() {
   useEffect(() => {
     // 1. Listen for Payment Success events
     socket.on("NOTIFY_PARTNER_IF_USER_SUCCESSFULLY_GET_PAYMNET", (data) => {
+      console.log(data)
       if (data?.booking) {
         setBookings((prev) =>
           prev.map((booking) =>

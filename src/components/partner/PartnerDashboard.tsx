@@ -143,7 +143,7 @@ export default function PartnerDashboard() {
     });
 
     socket.on("NOTIFY_PARTNER_FOR_BOOKING", (data) => {
-
+    console.log(data)
       // Dynamic logic addition: Appends new socket request to top of list automatically
       setIncomingRequest(true);
       if (data) {

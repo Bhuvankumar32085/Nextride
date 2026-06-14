@@ -110,6 +110,7 @@ const RidePage = ({ bookingId }: { bookingId: string }) => {
     });
 
     socket.on("NOTIFY_USER_RIDE_COMPLETED", (data) => {
+      console.log(data)
       setBooking(data.booking);
       router.push("/");
       toast.success("Ride completed successfully 🎉");
