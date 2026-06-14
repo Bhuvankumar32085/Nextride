@@ -207,7 +207,7 @@ export default function SignupPage() {
     try {
       setSubmitting(true);
       const { data } = await axios.post(
-        "http://localhost:5000/api/v1/user/google-login",
+        `${process.env.NEXT_PUBLIC_AUTH_API}/google-login`,
         { token: res.credential },
       );
       localStorage.setItem("token", data.token);
