@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { useAppSelector } from "@/app/redux/hooks";
 
 export default function PartnerProtectedRoute({
@@ -10,6 +10,7 @@ export default function PartnerProtectedRoute({
   children: React.ReactNode;
 }) {
   const router = useRouter();
+  const pathname = usePathname();
 
   const { loggedUser, loading } = useAppSelector((state) => state.user);
 
@@ -17,17 +18,26 @@ export default function PartnerProtectedRoute({
     if (!loading) {
       if (!loggedUser) {
         router.replace("/login");
-      } else if (loggedUser.role !== "partner") {
+        return;
+      }
+
+      const isOnboardingRoute = pathname.startsWith("/partner/onboarding");
+
+      if (loggedUser.role !== "partner" && !isOnboardingRoute) {
         router.replace("/");
       }
     }
-  }, [loading, loggedUser, router]);
+  }, [loading, loggedUser, pathname, router]);
 
   if (loading) return null;
 
   if (!loggedUser) return null;
 
-  if (loggedUser.role !== "partner") return null;
+  const isOnboardingRoute = pathname.startsWith("/partner/onboarding");
+
+  if (loggedUser.role !== "partner" && !isOnboardingRoute) {
+    return null;
+  }
 
   return <>{children}</>;
 }
