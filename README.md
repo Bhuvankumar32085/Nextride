@@ -1,36 +1,312 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🚖 NextRide - Microservices Based Ride Booking Platform
 
-## Getting Started
+NextRide is a production-ready ride booking platform inspired by modern transportation services like Uber and Ola. It is built using a scalable Microservices Architecture with real-time communication, location-based partner matching, Google Authentication, Dockerized services, and cloud deployment.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 🌐 Live Demo
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Frontend URL:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+https://nextride-phi.vercel.app/
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+# ✨ Features
 
-To learn more about Next.js, take a look at the following resources:
+## 🔐 Authentication & Authorization
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+* User Registration & Login
+* Google OAuth Login
+* JWT Authentication
+* Role-Based Access Control
+* Protected Routes
+* Persistent User Sessions
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## 🚗 Ride Booking System
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+* Create Ride Requests
+* Location-Based Ride Matching
+* Find Nearby Partners Within 5 KM Radius
+* Ride Status Tracking
+* Booking Management
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## 📍 Real-Time Tracking
+
+* Live Partner Location Updates
+* Real-Time Map Synchronization
+* Socket.IO Powered Communication
+* Dynamic Partner Tracking
+
+---
+
+## 🤝 Partner System
+
+* Partner Onboarding Workflow
+* Mobile Number Verification
+* Profile Management
+* Partner Approval Process
+* Real-Time Status Updates
+
+---
+
+## 🎥 Video KYC
+
+* Video KYC Request System
+* Approval & Rejection Workflow
+* Admin Review System
+
+---
+
+## 🔔 Notification System
+
+* OTP Generation
+* Email Verification
+* Event-Based Notifications
+* Service-to-Service Messaging
+
+---
+
+## 💬 Real-Time Chat
+
+* User ↔ Partner Communication
+* Socket.IO Real-Time Messaging
+* AI-Based Smart Reply Suggestions
+
+---
+
+## 🤖 AI Features
+
+* AI Chat Suggestions
+* Smart Response Recommendations
+* Real-Time Conversation Assistance
+
+---
+
+# 🏗️ Architecture
+
+The application follows a Microservices Architecture.
+
+Services:
+
+### Auth Service
+
+Handles:
+
+* User Authentication
+* Google Login
+* JWT Management
+* User Authorization
+
+### Booking Service
+
+Handles:
+
+* Ride Booking
+* Booking Management
+
+### Ride Service
+
+Handles:
+
+* Ride Processing
+* Ride Lifecycle
+
+### Realtime Service
+
+Handles:
+
+* Socket.IO Connections
+* Live Location Updates
+* Real-Time Communication
+
+### Notification Service
+
+Handles:
+
+* OTP Management
+* Email Notifications
+
+### Utils Service
+
+Handles:
+
+* Shared Utilities
+* Common Services
+
+---
+
+# ⚡ Event-Driven Communication
+
+Services communicate using RabbitMQ.
+
+Example Flow:
+
+User Registration
+
+→ Auth Service
+
+→ RabbitMQ Event
+
+→ Notification Service
+
+→ OTP Email Sent
+
+---
+
+# 📡 Real-Time Location Flow
+
+Partner Device
+
+→ Geolocation API
+
+→ Socket.IO
+
+→ Realtime Service
+
+→ User Room
+
+→ Live Map Update
+
+---
+
+# 🛠️ Tech Stack
+
+## Frontend
+
+* Next.js
+* React.js
+* TypeScript
+* Redux Toolkit
+* Redux Persist
+* Axios
+* Socket.IO Client
+* Tailwind CSS
+
+## Backend
+
+* Node.js
+* Express.js
+* TypeScript
+* MongoDB
+* Mongoose
+* RabbitMQ
+* Socket.IO
+* JWT
+* Google OAuth
+
+## DevOps
+
+* Docker
+* Docker Hub
+* Render
+* Vercel
+
+---
+
+# 🗄️ Database
+
+MongoDB is used as the primary database.
+
+Features:
+
+* User Management
+* Ride Storage
+* Booking Storage
+* Partner Data
+* Geospatial Queries
+
+---
+
+# 📍 GeoSpatial Search
+
+MongoDB GeoSpatial Queries are used to find nearby partners.
+
+Features:
+
+* 5 KM Radius Matching
+* Efficient Ride Assignment
+* Reduced Notification Overhead
+
+---
+
+# 🐳 Dockerized Services
+
+Each service runs independently inside Docker containers.
+
+Docker Images:
+
+* nextride-auth
+* nextride-booking
+* nextride-ride
+* nextride-realtime
+* nextride-notification
+* nextride-utils
+
+---
+
+# 🚀 Deployment
+
+## Frontend
+
+Hosted on Vercel
+
+## Backend
+
+Hosted on Render
+
+## Container Registry
+
+Docker Hub
+
+---
+
+# 🔒 Security Features
+
+* JWT Authentication
+* Google OAuth Verification
+* Password Hashing using bcrypt
+* Protected APIs
+* Role-Based Authorization
+
+---
+
+# 📈 Key Learnings
+
+This project demonstrates:
+
+* Microservices Architecture
+* Event-Driven Systems
+* Real-Time Communication
+* Cloud Deployment
+* Containerization
+* Authentication & Authorization
+* Geospatial Queries
+* Socket Programming
+* Distributed System Design
+
+---
+
+# 👨‍💻 Developer
+
+Bhuvan Kumar
+
+GitHub:
+https://github.com/Bhuvankumar32085
+
+---
+
+# ⭐ Future Improvements
+
+* AI Ride Recommendation System
+* Driver ETA Prediction
+* Push Notifications
+* Advanced Analytics Dashboard
+* Fraud Detection
+* AI-Powered Customer Support
+
+---
