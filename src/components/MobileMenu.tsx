@@ -108,26 +108,11 @@ const MobileMenu = ({
 
             {isAdmin && (
               <div className="flex-1 overflow-y-auto py-6 px-4 flex flex-col gap-2">
-                {[{ name: "Home", href: "/" }].map((link) => (
-                  <Link
-                    key={link.name}
-                    href={link.href}
-                    onClick={closeMenu}
-                    className="flex items-center justify-between p-4 rounded-xl text-slate-300 font-medium hover:text-white hover:bg-white/5 transition-all"
-                  >
-                    {link.name}
-                    <ChevronRight className="w-4 h-4 text-slate-600" />
-                  </Link>
-                ))}
-              </div>
-            )}
-            {isUser && (
-              <div className="flex-1 overflow-y-auto py-6 px-4 flex flex-col gap-2">
                 {[
                   { name: "Home", href: "/" },
                   {
-                    name: "Become a Partner",
-                    href: "/partner/onboarding/vehicle",
+                    name: "Revenue Analytics",
+                    href: "/admin/revenue-analytics",
                   },
                 ].map((link) => (
                   <Link
@@ -142,13 +127,43 @@ const MobileMenu = ({
                 ))}
               </div>
             )}
+
+            {isUser && (
+              <div className="flex-1 overflow-y-auto py-6 px-4 flex flex-col gap-2">
+                {[
+                  { name: "Home", href: "/" },
+                  {
+                    name: "Become a Partner",
+                    href: "/partner/onboarding/vehicle",
+                  },
+                  {
+                    name: " Active Ride",
+                    href: "/user/active-ride",
+                  },
+                ].map((link) => (
+                  <Link
+                    key={link.name}
+                    href={link.href}
+                    onClick={closeMenu}
+                    className="flex items-center justify-between p-4 rounded-xl text-slate-300 font-medium hover:text-white hover:bg-white/5 transition-all"
+                  >
+                    {link.name}
+                    <ChevronRight className="w-4 h-4 text-slate-600" />
+                  </Link>
+                ))}
+              </div>
+            )}
+
             {isPartner && (
               <div className="flex-1 overflow-y-auto py-6 px-4 flex flex-col gap-2">
                 {[
                   { name: "Home", href: "/" },
-                  { name: "Bookings", href: "/bookings" },
-                  { name: "Pending equest", href: "/pending-request" },
-                  { name: "Active Ride", href: "/active-ride" },
+                  {
+                    name: " Pending Requests",
+                    href: "/partner/pending-request",
+                  },
+                  { name: "Booking", href: "/partner/bookings" },
+                  { name: "Active Ride", href: "/partner/active-ride" },
                 ].map((link) => (
                   <Link
                     key={link.name}
