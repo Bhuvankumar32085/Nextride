@@ -101,9 +101,15 @@ const Page = () => {
   const dropLocation = [Number(dLon), Number(dLat)];
   const [userMobileNumber, setMobileNumber] = useState("");
   const [bookingId, setBookingID] = useState("");
-  const [paymentMethodForFatching, setPaymentMathodForFatching] = useState<"Cod" | "Online" | "Start">("Start");
-  const [paymentStatusForOnline, setPaymentStatusForOnline] = useState<"pending" | "paid" | "failed">("pending");
-  const [paymetDeadline, setpaymetDeadline] = useState<string | Date | undefined>();
+  const [paymentMethodForFatching, setPaymentMathodForFatching] = useState<
+    "Cod" | "Online" | "Start"
+  >("Start");
+  const [paymentStatusForOnline, setPaymentStatusForOnline] = useState<
+    "pending" | "paid" | "failed"
+  >("pending");
+  const [paymetDeadline, setpaymetDeadline] = useState<
+    string | Date | undefined
+  >();
   const [showPaymentModel, setPaymentModel] = useState<boolean>(false);
 
   const handleAddMobileNumber = async () => {
@@ -115,12 +121,16 @@ const Page = () => {
       const { data } = await authApi.post(
         "/add-user-mobileNumber",
         { mobileNumber: userMobileNumber },
-        { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } },
+        {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        },
       );
       dispatch(setLoggedUser(data.data));
     } catch (error) {
       if (axios.isAxiosError(error)) {
-        toast.error(error.response?.data?.message || "Add mobile Number Error.");
+        toast.error(
+          error.response?.data?.message || "Add mobile Number Error.",
+        );
       } else {
         toast.error("An unexpected error occurred.");
       }
@@ -133,12 +143,24 @@ const Page = () => {
       const { data } = await bookingApi.post(
         "/create-booking",
         {
-          partnerId, vehicleId, pickup, dropoff, pricePerKM,
-          driverMobileNumber, pickupLocation, dropLocation,
-          userMobileNumber, baseFare,
+          partnerId,
+          vehicleId,
+          pickup,
+          dropoff,
+          pricePerKM,
+          driverMobileNumber,
+          pickupLocation,
+          dropLocation,
+          userMobileNumber,
+          baseFare,
         },
-        { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } },
+        {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        },
       );
+
+      console.log("bookingStatus", data);
+
       if (data.success) {
         setBookingStatus(data.data.bookingStatus);
       }
@@ -157,7 +179,10 @@ const Page = () => {
     if (loggedUser?.mobileNumber) {
       setMobileNumber(loggedUser.mobileNumber);
     }
-    if (bookingStatus == "awaiting_payment" && paymentStatusForOnline !== "paid") {
+    if (
+      bookingStatus == "awaiting_payment" &&
+      paymentStatusForOnline !== "paid"
+    ) {
       setPaymentModel(true);
     } else {
       setPaymentModel(false);
@@ -187,7 +212,11 @@ const Page = () => {
       try {
         const { data } = await bookingApi.get(
           `/my-active-booking/${vehicleId}/${partnerId}`,
-          { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } },
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          },
         );
         if (data.data) {
           setBookingID(data.data._id);
@@ -213,7 +242,9 @@ const Page = () => {
       await bookingApi.patch(
         `/cancle/${bookingId}`,
         {},
-        { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } },
+        {
+          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+        },
       );
       router.back();
     } catch (error) {
@@ -227,7 +258,6 @@ const Page = () => {
 
   return (
     <div className="min-h-screen w-full bg-slate-950 text-white font-sans relative overflow-x-hidden selection:bg-blue-500/30">
-      
       {/* Background Subtle Mesh Gradients */}
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
         <div className="absolute top-[-10%] left-[-10%] h-[800px] w-[800px] rounded-full bg-blue-600/10 blur-[200px]" />
@@ -252,7 +282,8 @@ const Page = () => {
           animate={{ opacity: 1, x: 0 }}
           className="text-[10px] sm:text-xs font-black tracking-widest text-slate-500 uppercase flex items-center gap-2 font-mono"
         >
-          <ShieldCheck size={14} className="text-blue-500" /> 256-bit Encrypted Session
+          <ShieldCheck size={14} className="text-blue-500" /> 256-bit Encrypted
+          Session
         </motion.span>
       </header>
 
@@ -266,7 +297,6 @@ const Page = () => {
         >
           {/* LEFT COLUMN: Structural Details Matrix */}
           <div className="lg:col-span-7 space-y-6">
-            
             {/* Header Text Block Section */}
             <motion.div variants={cardVariants} className="space-y-1">
               <span className="text-xs font-black tracking-widest text-blue-500 uppercase font-mono block">
@@ -296,7 +326,8 @@ const Page = () => {
               </div>
 
               <h2 className="text-xs font-black text-slate-500 tracking-widest uppercase mb-6 flex items-center gap-2 font-mono">
-                <Compass size={14} className="text-blue-500" /> Route Coordinates
+                <Compass size={14} className="text-blue-500" /> Route
+                Coordinates
               </h2>
 
               <div className="space-y-8 relative">
@@ -343,7 +374,7 @@ const Page = () => {
 
               <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5 p-5 rounded-3xl bg-black/40 border border-white/5 relative overflow-hidden">
                 <div className="absolute top-0 right-0 w-32 h-32 bg-purple-500/5 rounded-full blur-3xl pointer-events-none" />
-                
+
                 <div className="flex items-center gap-5 relative z-10">
                   <div className="relative shrink-0">
                     <Image
@@ -367,7 +398,8 @@ const Page = () => {
                         {vehicleType}
                       </span>
                       <span className="text-[11px] text-slate-400 flex items-center gap-1 font-medium">
-                        <CheckCircle2 size={12} className="text-blue-500" /> Verified Node
+                        <CheckCircle2 size={12} className="text-blue-500" />{" "}
+                        Verified Node
                       </span>
                     </div>
                   </div>
@@ -434,12 +466,15 @@ const Page = () => {
               )}
 
               <h2 className="text-xs font-black text-slate-500 tracking-widest uppercase mb-6 flex items-center gap-2 font-mono relative z-10">
-                <Receipt size={14} className="text-blue-500" /> Invoice Breakdown
+                <Receipt size={14} className="text-blue-500" /> Invoice
+                Breakdown
               </h2>
 
               <div className="space-y-4 relative z-10">
                 <div className="flex justify-between items-center text-sm border-b border-white/5 pb-4">
-                  <span className="text-slate-400 font-medium">Base Compute Fare</span>
+                  <span className="text-slate-400 font-medium">
+                    Base Compute Fare
+                  </span>
                   <span className="font-bold font-mono text-slate-200 tracking-wide">
                     ₹{baseFare.toFixed(2)}
                   </span>
@@ -466,11 +501,19 @@ const Page = () => {
                         Node Waiting Charges
                       </span>
                       <div className="relative group/tooltip">
-                        <button type="button" className="text-slate-500 hover:text-slate-300 transition-colors">
+                        <button
+                          type="button"
+                          className="text-slate-500 hover:text-slate-300 transition-colors"
+                        >
                           <HelpCircle size={14} />
                         </button>
                         <div className="absolute left-0 bottom-6 w-64 p-4 rounded-[20px] bg-slate-900 border border-slate-700 text-[11px] text-slate-300 shadow-2xl opacity-0 invisible group-hover/tooltip:opacity-100 group-hover/tooltip:visible transition-all duration-300 z-50 leading-relaxed backdrop-blur-xl">
-                          Waiting charges are <b>not included</b> in the default total setup. Applied dynamically at <span className="text-green-400 font-bold font-mono">₹{waitingCharge}/min</span> bounds separate billing if driver endures delays.
+                          Waiting charges are <b>not included</b> in the default
+                          total setup. Applied dynamically at{" "}
+                          <span className="text-green-400 font-bold font-mono">
+                            ₹{waitingCharge}/min
+                          </span>{" "}
+                          bounds separate billing if driver endures delays.
                         </div>
                       </div>
                     </div>
@@ -498,9 +541,14 @@ const Page = () => {
               </div>
 
               <div className="mt-8 flex items-start gap-3 p-4 rounded-2xl bg-blue-500/5 border border-blue-500/10 text-[11px] text-slate-400 leading-relaxed relative z-10 shadow-inner">
-                <AlertCircle size={16} className="text-blue-400 shrink-0 mt-0.5" />
+                <AlertCircle
+                  size={16}
+                  className="text-blue-400 shrink-0 mt-0.5"
+                />
                 <p>
-                  By confirming this ride ticket, you agree to our standard premium logistics compliance policies and automated fair-rate route calculations.
+                  By confirming this ride ticket, you agree to our standard
+                  premium logistics compliance policies and automated fair-rate
+                  route calculations.
                 </p>
               </div>
 
@@ -528,16 +576,18 @@ const Page = () => {
               {/* Secure Trust Grid Seal Badges */}
               <div className="mt-8 grid grid-cols-3 gap-3 text-center text-[9px] font-black tracking-widest text-slate-500 uppercase font-mono relative z-10">
                 <div className="p-3 border border-white/5 rounded-2xl bg-black/20 flex flex-col items-center justify-center gap-1.5 shadow-inner">
-                  <CheckCircle2 size={14} className="text-blue-500" /> Insured Transit
+                  <CheckCircle2 size={14} className="text-blue-500" /> Insured
+                  Transit
                 </div>
                 <div className="p-3 border border-white/5 rounded-2xl bg-black/20 flex flex-col items-center justify-center gap-1.5 shadow-inner">
-                  <CheckCircle2 size={14} className="text-blue-500" /> Top Partner
+                  <CheckCircle2 size={14} className="text-blue-500" /> Top
+                  Partner
                 </div>
                 <div className="p-3 border border-white/5 rounded-2xl bg-black/20 flex flex-col items-center justify-center gap-1.5 shadow-inner">
-                  <CheckCircle2 size={14} className="text-blue-500" /> 24/7 Security
+                  <CheckCircle2 size={14} className="text-blue-500" /> 24/7
+                  Security
                 </div>
               </div>
-
             </motion.div>
           </div>
         </motion.div>

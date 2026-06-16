@@ -28,6 +28,7 @@ const DeriverDetail = ({
   dLon: number;
   vehicleType: string | null;
 }) => {
+  console.log("nearbyPartners", nearbyPartners);
   const router = useRouter();
   return (
     <div className="p-3 lg:p-5 pt-0 mt-auto shrink-0">
@@ -75,8 +76,12 @@ const DeriverDetail = ({
                   />
 
                   <div className="absolute top-3 right-3">
-                    <span className="px-3 py-1 rounded-full bg-green-500 text-white text-xs font-bold">
-                      ● Online
+                    <span
+                      className={`px-3 py-1 rounded-full text-white text-xs font-bold ${
+                        partner.isOnline ? "bg-green-500" : "bg-gray-500"
+                      }`}
+                    >
+                      {partner.isOnline ? "Online" : "Offline"}
                     </span>
                   </div>
                 </div>
@@ -177,16 +182,19 @@ const DeriverDetail = ({
                   {/* Buttons */}
                   <div className="flex gap-3 mt-5">
                     <button
-                      className="
-                        flex-1
-                        rounded-2xl
-                        py-3
-                        font-semibold
-                        bg-gradient-to-r
-                        from-blue-600
-                        to-cyan-500
-                        text-white
-                      "
+                      disabled={!partner.isOnline}
+                      className={`
+                                  flex-1
+                                  rounded-2xl
+                                  py-3
+                                  font-semibold
+                                  transition-all
+                                  ${
+                                    partner.isOnline
+                                      ? "bg-gradient-to-r from-blue-600 to-cyan-500 text-white"
+                                      : "bg-gray-200 text-gray-400 cursor-not-allowed"
+                                  }
+                      `}
                       onClick={() => {
                         const params = new URLSearchParams({
                           pickup,

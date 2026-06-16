@@ -161,6 +161,16 @@ const ChackoutPageButton = ({
     }
   };
 
+  const buttonText = {
+    awaiting_payment: `Finalize Escrow • ₹${totalFare}`,
+    expired: "Session Expired",
+    idle: "Confirm Request",
+    rejected: "Try Again",
+    requested: "Please Wait",
+  };
+
+  console.log("bookingStatus", bookingStatus);
+
   return (
     <>
       {loggedUser?.mobileNumber === undefined || !userMobileNumber ? (
@@ -449,7 +459,11 @@ const ChackoutPageButton = ({
                   <motion.button
                     whileHover={{ scale: 1.02, y: -1 }}
                     whileTap={{ scale: 0.98 }}
-                    disabled={isProcessing || bookingStatus === "expired"}
+                    disabled={
+                      isProcessing ||
+                      bookingStatus === "expired" ||
+                      bookingStatus == "requested"
+                    }
                     onClick={handlePayment}
                     className="w-full relative overflow-hidden rounded-[20px] bg-gradient-to-r from-blue-600 via-blue-500 to-cyan-500 py-4 font-black text-xs uppercase tracking-widest text-white shadow-[0_0_30px_rgba(59,130,246,0.3)] transition-all flex items-center justify-center gap-2 group disabled:opacity-50 disabled:cursor-not-allowed"
                   >
@@ -471,9 +485,13 @@ const ChackoutPageButton = ({
                               ? "Session Expired"
                               : bookingStatus == "idle"
                                 ? "Confirm Request"
-                                : `Lock & Initialize Ride • ₹${totalFare}`}
+                                : bookingStatus == "rejected"
+                                  ? "Try Again"
+                                  : bookingStatus == "requested"
+                                    ? "Please Wait"
+                                    : ""}
                         </span>
-                      </>
+                      </> //requested
                     )}
                   </motion.button>
                 )}

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import { rideApi } from "@/app/axios/rideApi";
 import { useAppSelector } from "@/app/redux/hooks";
+import { cloudinaryApi } from "@/app/axios/utilsApi";
 
 type DocType = "aadhar" | "rc" | "license";
 
@@ -78,6 +79,27 @@ export default function OnboardingDocumentsPage() {
       fileInputRefs[type].current!.value = "";
     }
   };
+
+  useEffect(() => {
+    const wakeUpService = async () => {
+      try {
+        const { data } = await cloudinaryApi.get("/health");
+
+        console.log("SERVICE AWAKE", data);
+        await new Promise((resolve) => setTimeout(resolve, 2000));
+      } catch (error) {
+        if (axios.isAxiosError(error)) {
+          console.log(error.code);
+          console.log(error.message);
+          console.log(error.response);
+        }
+
+        console.log(error);
+      }
+    };
+
+    wakeUpService();
+  }, []);
 
   const handleSubmit = async () => {
     // if user enbording step is 4 and partner status is verified then uou kan not update the vehicle details

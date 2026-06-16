@@ -142,7 +142,7 @@ export const RideChatWidget = ({
   if (!loggedUser) return null;
 
   return (
-    <div className="fixed bottom-5 right-5 z-[9999] font-sans selection:bg-blue-500/20">
+    <div className="fixed bottom-5 left-2 z-[9999] font-sans selection:bg-blue-500/20">
       {/* Custom Styles Injection */}
       <style
         dangerouslySetInnerHTML={{
@@ -173,7 +173,7 @@ export const RideChatWidget = ({
             whileHover={{ scale: 1.05, y: -2 }}
             whileTap={{ scale: 0.95 }}
             transition={{ type: "spring", stiffness: 300, damping: 20 }}
-            className="flex items-center gap-3 px-4 py-3.5 rounded-full bg-slate-900/90 border border-blue-500/30 text-white shadow-[0_0_40px_rgba(59,130,246,0.25)] backdrop-blur-xl relative group "
+            className="flex items-center gap-3 px-3 py-3.5 rounded-full bg-slate-900/90 border border-blue-500/30 text-white shadow-[0_0_40px_rgba(59,130,246,0.25)] backdrop-blur-xl relative group "
           >
             {/* Ambient Background Light Sweep */}
             <div className="absolute inset-0 bg-gradient-to-r from-blue-600/10 via-cyan-500/10 to-blue-600/10 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000" />
